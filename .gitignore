@@ -35,8 +35,8 @@ build/
 
 ### Files ###
 
-/src/main/resources/application.properties
-docker 
+application.properties
+
 
 
 
