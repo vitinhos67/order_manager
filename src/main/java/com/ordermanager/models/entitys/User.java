@@ -25,6 +25,8 @@ public class User {
 	@Size(min = 6, message = "The password must have at least 6 characters.")
 	private String password;
 	
+	
+	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
