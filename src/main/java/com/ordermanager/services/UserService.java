@@ -39,6 +39,23 @@ public class UserService {
 		return this.userRepository.findById(id);
 	}
 	
+	public User updateUser(User user, int id) throws Exception {
+		
+		Optional<User> optionalUser = this.findUserById(id);
+		
+	    if (!optionalUser.isPresent()) {
+	        throw new Exception("User not found");
+	    } 
+
+	    User user1 = optionalUser.get();
+	    user1.setName(user.getName());
+	    user1.setEmail(user.getEmail());
+	   
+
+	    this.createUser(user1);
+	    return user1;
+	}
+	
 	
 		
 	

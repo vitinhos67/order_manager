@@ -62,10 +62,9 @@ public class UserController {
 		    User user1 = optionalUser.get();
 		    user1.setName(user.getName());
 		    user1.setEmail(user.getEmail());
-		    // Atualize outros campos conforme necessário
+		   
 
-		    this.userService.createUser(user1); // Atualiza o usuário no banco de dados
-
+		    this.userService.createUser(user1); // Update the user in the database
 		    return user1;
 	}
 	
