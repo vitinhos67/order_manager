@@ -31,7 +31,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(path = "/user", method = RequestMethod.POST)
+	@RequestMapping(path = "/user", method = {RequestMethod.POST})
 	public User createUser(@Valid @RequestBody User user) throws Exception {
 			this.userService.createUser(user);		
 			return user;
@@ -46,5 +46,28 @@ public class UserController {
 	public Optional<User> findUserById(@PathVariable int id) throws Exception {
 		return this.userService.findUserById(id);
 	}
+	
+	
+	@RequestMapping(path = "/user/{id}", method = {RequestMethod.PUT})
+	public User updateUser(@Valid @RequestBody User user, @PathVariable int id) throws Exception {
+			
+			
+		
+			Optional<User> optionalUser = this.userService.findUserById(id);
+		
+		    if (!optionalUser.isPresent()) {
+		        throw new Exception("User not found");
+		    } 
+
+		    User user1 = optionalUser.get();
+		    user1.setName(user.getName());
+		    user1.setEmail(user.getEmail());
+		    // Atualize outros campos conforme necessário
+
+		    this.userService.createUser(user1); // Atualiza o usuário no banco de dados
+
+		    return user1;
+	}
+	
 	
 }

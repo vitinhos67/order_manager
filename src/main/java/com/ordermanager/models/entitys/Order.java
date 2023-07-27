@@ -1,6 +1,7 @@
 package com.ordermanager.models.entitys;
 
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -19,6 +20,14 @@ public class Order {
 	
 	@OneToMany
 	private List<Item> itens;
+	private Date created_at;
+
+	public Order(int id, List<Item> itens) {
+		super();
+		this.id = id;
+		this.itens = itens;
+		this.setCreated_at(new Date());
+	}
 
 	public int getId() {
 		return id;
@@ -26,6 +35,14 @@ public class Order {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
 
 	
