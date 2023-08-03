@@ -44,5 +44,10 @@ public class OrderService {
         // Salva o Pedido
         return orderRepository.save(saveOrder);
     }
+    
+    public Iterable<Order> findAll() {
+    	return this.orderRepository.findAll(); 
+    	}
+    
 	
 }
