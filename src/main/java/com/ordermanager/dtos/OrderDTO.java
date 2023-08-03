@@ -1,4 +1,4 @@
-package com.ordermanager.models.entitys;
+package com.ordermanager.dtos;
 
 import java.util.List;
 

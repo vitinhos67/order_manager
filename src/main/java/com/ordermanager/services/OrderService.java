@@ -2,13 +2,14 @@ package com.ordermanager.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ordermanager.dtos.OrderDTO;
 import com.ordermanager.models.entitys.Item;
 import com.ordermanager.models.entitys.Order;
-import com.ordermanager.models.entitys.OrderDTO;
 import com.ordermanager.models.repositorys.ItemRepository;
 import com.ordermanager.models.repositorys.OrderRepository;
 
@@ -24,7 +25,7 @@ public class OrderService {
 	
 	
     public Order create(OrderDTO order) throws Exception {
-        // Validação dos itens existentes no banco de dados
+        
         List<Item> itensFromOrder = new ArrayList<>();
         
         for (Integer item : order.getItens()) {
@@ -34,20 +35,24 @@ public class OrderService {
             if (itemExists != null) {
             	itensFromOrder.add(itemExists);
             } else {
-                // Item não encontrado
                 throw new Exception("Item não encontrado com o ID: " + item);
             }
         }
 
         Order saveOrder = new Order(itensFromOrder);
         
-        // Salva o Pedido
+
         return orderRepository.save(saveOrder);
     }
     
-    public Iterable<Order> findAll() {
-    	return this.orderRepository.findAll(); 
-    	}
+    public List<Order> findAll() {
+    	return (List<Order>) this.orderRepository.findAll();   
+    }
+    
+    public Optional<Order> findById(Integer id) {
+    	return this.orderRepository.findById(id);
+    }
+    
     
 	
 }
