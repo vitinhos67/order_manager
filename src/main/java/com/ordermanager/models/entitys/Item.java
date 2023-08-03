@@ -4,16 +4,46 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Item {
+	
+	public Item() {
+	// TODO Auto-generated constructor stub
+	}
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;
 	private double price;
-	private int amount;
+	
+	
+	@JoinColumn(name = "order_id")
+	@ManyToOne
+	private Order order;
+	
+	
+	public Item(Integer id,String name, String description, double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+
+	}
+	
+	public Item(String name, String description, double price) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.price = price;
+
+	}
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -37,12 +67,6 @@ public class Item {
 	}
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
 	}
 	
 	

@@ -50,22 +50,7 @@ public class UserController {
 	
 	@RequestMapping(path = "/user/{id}", method = {RequestMethod.PUT})
 	public User updateUser(@Valid @RequestBody User user, @PathVariable int id) throws Exception {
-			
-			
-		
-			Optional<User> optionalUser = this.userService.findUserById(id);
-		
-		    if (!optionalUser.isPresent()) {
-		        throw new Exception("User not found");
-		    } 
-
-		    User user1 = optionalUser.get();
-		    user1.setName(user.getName());
-		    user1.setEmail(user.getEmail());
-		   
-
-		    this.userService.createUser(user1); // Update the user in the database
-		    return user1;
+			return this.userService.updateUser(user, id);
 	}
 	
 	
