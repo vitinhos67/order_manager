@@ -25,21 +25,21 @@ public class OrderService {
 	
     public Order create(OrderDTO order) throws Exception {
         // Validação dos itens existentes no banco de dados
-        List<Item> itensDoPedido = new ArrayList<>();
+        List<Item> itensFromOrder = new ArrayList<>();
         
         for (Integer item : order.getItens()) {
-            Item itemExistente = itemRepository.findById(item).orElse(null);
+            Item itemExists = itemRepository.findById(item).orElse(null);
             
             
-            if (itemExistente != null) {
-            	itensDoPedido.add(itemExistente);
+            if (itemExists != null) {
+            	itensFromOrder.add(itemExists);
             } else {
-                // Item não encontrado, você pode tratar o erro aqui
+                // Item não encontrado
                 throw new Exception("Item não encontrado com o ID: " + item);
             }
         }
 
-        Order saveOrder = new Order(itensDoPedido);
+        Order saveOrder = new Order(itensFromOrder);
         
         // Salva o Pedido
         return orderRepository.save(saveOrder);

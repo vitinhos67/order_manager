@@ -28,8 +28,8 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Order> createOrder(@RequestBody OrderDTO order ) throws Exception {
 		
-	       Order novoPedido = this.orderService.create(order);
-	       	return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
+	       Order newOrder = this.orderService.create(order);
+	       	return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
 		
 
     }
