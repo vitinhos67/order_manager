@@ -34,6 +34,8 @@ public class Order {
     )
     private List<Item> itens;
 	private Date created_at;
+	private String description;
+	
 
 	@Autowired
 	@Transient
@@ -71,6 +73,16 @@ public class Order {
 	}
 
 	
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;

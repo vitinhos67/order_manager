@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ordermanager.models.entitys.User;
-import com.ordermanager.services.UserService;
+import com.ordermanager.services.user.UserService;
 
 import jakarta.validation.Valid;
 

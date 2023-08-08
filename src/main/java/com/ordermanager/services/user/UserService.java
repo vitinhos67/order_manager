@@ -1,4 +1,4 @@
-package com.ordermanager.services;
+package com.ordermanager.services.user;
 
 import java.util.List;
 import java.util.Optional;
