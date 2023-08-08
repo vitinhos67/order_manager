@@ -3,8 +3,8 @@ package com.ordermanager.services.user;
 import java.util.List;
 import java.util.Optional;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.ordermanager.models.entitys.User;
@@ -16,15 +16,8 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-
-	public String hashPassword(String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt());
-	}
-	
-	
+		
 	public User createUser(User user) {
-	user.setPassword(hashPassword(user.getPassword()));
 	this.userRepository.save(user);
 	return user;
 	}
@@ -56,6 +49,10 @@ public class UserService {
 	    return user1;
 	}
 	
+	
+	public UserDetails findByEmail(String email) {
+		return this.userRepository.findByEmail(email);
+	}
 	
 		
 	

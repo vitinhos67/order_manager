@@ -43,11 +43,12 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String email, String password) {
+	public User(String name, String email, String password, UserRole role) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.role = role;
 		this.created_at =  new Date();
 	}
 
