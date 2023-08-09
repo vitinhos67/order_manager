@@ -3,7 +3,6 @@ package com.ordermanager.configs.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,40 +26,41 @@ public class SecurityFilter extends OncePerRequestFilter {
 	@Autowired
 	private UserService userService;
 	
-@Override
-protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-		throws ServletException, IOException {
-
-	var token = retrieveToken(request);
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 	
-	
-	if(token != null) {
-		var subject = tokenService.validateToken(token);
+		var token = retrieveToken(request);
 		
-		UserDetails user = userService.findByEmail(subject);
 		
-		var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		if(token != null) {
+			var subject = tokenService.validateToken(token);
+			
+			UserDetails user = userService.findByEmail(subject);
+			
+			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+		}
+		
+		filterChain.doFilter(request, response);
+		
 		
 	}
 	
-	filterChain.doFilter(request, response);
+	/**
+	 * Retrieve the user's token
+	 * @param request
+	 * @return
+	 */
+	private String retrieveToken(HttpServletRequest request) {
+	    String token = request.getHeader("Authorization");
+	    if(token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+	        return null;
+	    }
+	    return token.replace("Bearer ", "");
+	}
 	
-	
-}
-/**
- * Retrieve the user's token
- * @param request
- * @return
- */
-private String retrieveToken(HttpServletRequest request) {
-    String token = request.getHeader("Authorization");
-    if(token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
-        return null;
-    }
-    return token.replace("Bearer ", "");
-}
-
 
 
 }

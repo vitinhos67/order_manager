@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ordermanager.configs.security.TokenService;
+import com.ordermanager.dtos.Authentication.LoginResponseDTO;
+import com.ordermanager.dtos.Authentication.RegisterDTO;
 import com.ordermanager.models.entitys.AuthenticationDTO;
-import com.ordermanager.models.entitys.LoginResponseDTO;
-import com.ordermanager.models.entitys.RegisterDTO;
 import com.ordermanager.models.entitys.User;
 import com.ordermanager.services.user.UserService;
 
