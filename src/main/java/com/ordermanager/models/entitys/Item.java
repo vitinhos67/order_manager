@@ -1,5 +1,8 @@
 package com.ordermanager.models.entitys;
 
+import java.util.List;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,21 +23,26 @@ public class Item {
 	private String description;
 	private double price;
 	
+	@ElementCollection
+	private List<String> ingredients;
 	
 	@JoinColumn(name = "order_id")
 	@ManyToOne
 	private Order order;
 	
 	
-	public Item(Integer id,String name, String description, double price) {
+	public Item(Integer id,String name, String description, double price, List<String> ingredients) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		setIngredients(ingredients);
 
 	}
 	
+
+
 	public Item(String name, String description, double price) {
 		super();
 		this.name = name;
@@ -67,6 +75,14 @@ public class Item {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public List<String> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<String> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 	
