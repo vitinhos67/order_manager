@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ordermanager.configs.security.TokenService;
 import com.ordermanager.models.entitys.AuthenticationDTO;
+import com.ordermanager.models.entitys.LoginResponseDTO;
 import com.ordermanager.models.entitys.RegisterDTO;
 import com.ordermanager.models.entitys.User;
 import com.ordermanager.services.user.UserService;
@@ -28,6 +30,9 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	TokenService tokenService;
+	
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
@@ -38,8 +43,12 @@ public class AuthenticationController {
 		
 		var auth = this.authenticationManagager.authenticate(usernamePassword);
 		
+
+		var token = tokenService.generateToken((User) auth.getPrincipal());
 		
-		return ResponseEntity.ok(auth);
+		
+		
+		return ResponseEntity.ok(new LoginResponseDTO(token));
 	}
 	
 	
@@ -51,7 +60,7 @@ public class AuthenticationController {
 		String hashPassword = new BCryptPasswordEncoder().encode(data.password());
 		
 		User newUser = new User(data.username(),data.email(), hashPassword, data.role());
-		
+
 		this.userService.createUser(newUser);
 		
 		
