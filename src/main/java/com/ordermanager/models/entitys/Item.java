@@ -23,6 +23,8 @@ public class Item {
 	private String description;
 	private double price;
 	
+	private String category;
+	
 	@ElementCollection
 	private List<String> ingredients;
 	
@@ -31,12 +33,13 @@ public class Item {
 	private Order order;
 	
 	
-	public Item(Integer id,String name, String description, double price, List<String> ingredients) {
+	public Item(Integer id,String name, String description, double price, List<String> ingredients, String category) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.category = category;
 		setIngredients(ingredients);
 
 	}
@@ -55,24 +58,31 @@ public class Item {
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public double getPrice() {
 		return price;
 	}
+	
 	public void setPrice(double price) {
 		this.price = price;
 	}
