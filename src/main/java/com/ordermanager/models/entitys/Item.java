@@ -3,6 +3,8 @@ package com.ordermanager.models.entitys;
 import java.util.Date;
 import java.util.List;
 
+import com.ordermanager.services.Item.ItemStatus;
+
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Item {
 	private String name;
 	private String description;
 	private double price;
-	
+	private ItemStatus status;
 	private String category;
 	
 	@ElementCollection
@@ -36,12 +38,13 @@ public class Item {
 	private Date created_at;
 	
 	
-	public Item(Integer id,String name, String description, double price, List<String> ingredients, String category) {
+	public Item(Integer id,String name, String description, double price, List<String> ingredients, String category, ItemStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.status = status;
 		this.category = category;
 		
 		setIngredients(ingredients);
@@ -64,6 +67,14 @@ public class Item {
 	}
 
 
+
+	public ItemStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ItemStatus status) {
+		this.status = status;
+	}
 
 	public void setCategory(String category) {
 		this.category = category;

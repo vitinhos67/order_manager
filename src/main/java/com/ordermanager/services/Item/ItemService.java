@@ -1,4 +1,4 @@
-package com.ordermanager.services;
+package com.ordermanager.services.Item;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +27,12 @@ public class ItemService {
 	public List<Item> findAll() {
 		return (List<Item>) this.itemRepository.findAll();
 	}
+	
+	public List<Item> findAllByCategory(String category) {
+		return this.itemRepository.findAllByCategory(category);
+	}
+	
+
 
 	
 	

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ordermanager.services.ItemService;
+import com.ordermanager.services.Item.ItemService;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
