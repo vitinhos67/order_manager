@@ -1,5 +1,6 @@
 package com.ordermanager.models.entitys;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -32,6 +33,8 @@ public class Item {
 	@ManyToOne
 	private Order order;
 	
+	private Date created_at;
+	
 	
 	public Item(Integer id,String name, String description, double price, List<String> ingredients, String category) {
 		super();
@@ -40,10 +43,32 @@ public class Item {
 		this.description = description;
 		this.price = price;
 		this.category = category;
+		
 		setIngredients(ingredients);
+		setCreated_at(new Date());
 
 	}
 	
+	public String getCategory() {
+		return category;
+	}
+
+
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 
 
 	public Item(String name, String description, double price) {

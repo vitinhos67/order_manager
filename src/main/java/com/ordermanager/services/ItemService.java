@@ -1,5 +1,6 @@
 package com.ordermanager.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class ItemService {
 	public Optional<Item> findById(int id) {
 		return this.itemRepository.findById(id);
 	}
+	
+	public List<Item> findAll() {
+		return (List<Item>) this.itemRepository.findAll();
+	}
+
 	
 	
 	
