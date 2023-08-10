@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ordermanager.dtos.OrderDTO;
 import com.ordermanager.models.entitys.Order;
-import com.ordermanager.services.OrderService;
+import com.ordermanager.services.Order.OrderService;
 
 
 

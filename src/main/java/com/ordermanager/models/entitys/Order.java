@@ -6,9 +6,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ordermanager.models.entitys.Embeddable.Address;
 import com.ordermanager.services.Item.ItemService;
+import com.ordermanager.services.Order.OrderStatus;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +38,12 @@ public class Order {
     private List<Item> itens;
 	private Date created_at;
 	private String description;
+	private OrderStatus status;
+	
+	
+	@Embedded
+	private Address address;
+	
 	
 
 	@Autowired
@@ -49,6 +58,19 @@ public class Order {
 	}
 	
 	
+	
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+
+
 	public Order() {
 	// TODO Auto-generated constructor stub
 	}

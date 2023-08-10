@@ -8,8 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ordermanager.models.entitys.Embeddable.Address;
 import com.ordermanager.services.user.UserRole;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +38,11 @@ public class User implements UserDetails {
 	private String password;
 	
 	
+	@Embedded
+	Address address;
+	
+	
+	
 	private UserRole role;
 	
 	
@@ -43,19 +50,28 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String email, String password, UserRole role) {
+	public User(String name, String email, String password, UserRole role, Address address) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.created_at =  new Date();
+		this.setAddress(address);
+		this.setCreated_at(new Date());
 	}
 
 	
 	
 	
 
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public String getName() {
 		return name;

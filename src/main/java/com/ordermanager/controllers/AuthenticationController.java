@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ordermanager.configs.security.TokenService;
 import com.ordermanager.dtos.Authentication.LoginResponseDTO;
 import com.ordermanager.dtos.Authentication.RegisterDTO;
 import com.ordermanager.models.entitys.AuthenticationDTO;
 import com.ordermanager.models.entitys.User;
+import com.ordermanager.models.entitys.Embeddable.Address;
 import com.ordermanager.services.user.UserService;
 
 import jakarta.validation.Valid;
@@ -55,16 +55,28 @@ public class AuthenticationController {
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody @Valid RegisterDTO data) {
 		
-		if(this.userService.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+		try {
+			
+			if(this.userService.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+			
+			String hashPassword = new BCryptPasswordEncoder().encode(data.password());
+			
 		
-		String hashPassword = new BCryptPasswordEncoder().encode(data.password());
-		
-		User newUser = new User(data.username(),data.email(), hashPassword, data.role());
-
-		this.userService.createUser(newUser);
-		
-		
-		return ResponseEntity.ok(newUser);
+			Address newAddress = new Address(data.address().getStreet(), 
+					data.address().getCity(), data.address().getState(), data.address().getCep());
+			
+			
+			User newUser = new User(data.name(),data.email(), hashPassword, data.role(), newAddress);
+			
+			
+			
+			this.userService.createUser(newUser);
+			 			
+			return ResponseEntity.ok(newUser);
+		} catch (Exception e) {		
+			System.out.print("ot aqui?");
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 	
 	
