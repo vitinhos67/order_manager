@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ordermanager.common.errors.ItemNotFoundException;
 import com.ordermanager.models.entitys.Item;
 import com.ordermanager.models.repositorys.ItemRepository;
 
@@ -30,6 +31,21 @@ public class ItemService {
 	
 	public List<Item> findAllByCategory(String category) {
 		return this.itemRepository.findAllByCategory(category);
+	}
+	
+	public Optional<Item> changeItemStatus(int id, ItemStatus status) throws Exception {
+		
+		Optional<Item> findItem = this.findById(id);
+		
+		if(!findItem.isPresent()) {
+			throw new ItemNotFoundException("Item are Null!");
+		}
+		
+		findItem.get().setStatus(status);
+		
+		this.itemRepository.save(findItem.get());
+		return findItem;
+		
 	}
 	
 
