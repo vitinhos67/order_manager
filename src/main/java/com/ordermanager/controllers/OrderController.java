@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ordermanager.dtos.OrderDTO;
 import com.ordermanager.models.entitys.Order;
 import com.ordermanager.services.Order.OrderService;
@@ -29,11 +29,12 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO order) throws Exception {
-		
-	       Order newOrder = this.orderService.create(order);
-	       	return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
-		
+    public ResponseEntity<Order> createOrder
+    (@RequestBody OrderDTO order,
+    @RequestParam(name = "idUser", required = false)  Optional<Integer> idUser) 
+    		throws Exception {
+			       Order newOrder = this.orderService.create(order, idUser);
+			       	return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
 
     }
 	

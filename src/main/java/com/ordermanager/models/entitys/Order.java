@@ -40,6 +40,10 @@ public class Order {
 	private String description;
 	private OrderStatus status;
 	
+	@JoinColumn(name = "user_id")
+    private Integer userId; // Guarda o ID do usuário associado a este pedido
+	
+	
 	
 	@Embedded
 	private Address address;
@@ -51,8 +55,9 @@ public class Order {
 	private ItemService itemService;
 		
 	
-	public Order(List<Item> itens) {
+	public Order(List<Item> itens, int userId) {
 		super();
+		this.userId = userId;
 		this.itens = itens;
 		this.created_at = new Date();
 	}
@@ -61,6 +66,30 @@ public class Order {
 	
 	public OrderStatus getStatus() {
 		return status;
+	}
+
+	
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 

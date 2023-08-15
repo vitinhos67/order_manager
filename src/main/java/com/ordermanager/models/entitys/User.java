@@ -36,13 +36,9 @@ public class User implements UserDetails {
 	@NotBlank(message = "Password cannot be blank")
 	@Size(min = 6, message = "The password must have at least 6 characters.")
 	private String password;
-	
-	
+		
 	@Embedded
 	Address address;
-	
-	
-	
 	private UserRole role;
 	
 	
@@ -50,7 +46,7 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String email, String password, UserRole role, Address address) {
+	public User(String name, String email, String password, UserRole role,Address address) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -59,11 +55,6 @@ public class User implements UserDetails {
 		this.setAddress(address);
 		this.setCreated_at(new Date());
 	}
-
-	
-	
-	
-
 
 	public Address getAddress() {
 		return address;

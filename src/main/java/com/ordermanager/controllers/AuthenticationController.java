@@ -25,7 +25,7 @@ public class AuthenticationController {
 
 	
 	@Autowired
-	private AuthenticationManager authenticationManagager;
+	private AuthenticationManager authenticationManager;
 	
 	@Autowired
 	private UserService userService;
@@ -41,7 +41,7 @@ public class AuthenticationController {
 		
 		
 		
-		var auth = this.authenticationManagager.authenticate(usernamePassword);
+		var auth = this.authenticationManager.authenticate(usernamePassword);
 		
 
 		var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -73,8 +73,7 @@ public class AuthenticationController {
 			this.userService.createUser(newUser);
 			 			
 			return ResponseEntity.ok(newUser);
-		} catch (Exception e) {		
-			System.out.print("ot aqui?");
+		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
