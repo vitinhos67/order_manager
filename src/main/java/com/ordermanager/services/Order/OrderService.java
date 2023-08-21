@@ -1,9 +1,11 @@
 package com.ordermanager.services.Order;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,15 @@ public class OrderService {
     public Optional<Order> findById(Integer id) {
     	return this.orderRepository.findById(id);
     }
+    
+    public List<Order> findByDate(LocalDate date) {
+    	
+    	System.out.println(date);
+  
+    	List<Order> orders = this.orderRepository.findAllByDate(date);
+    	return orders;
+    }
+    
     
     
 	

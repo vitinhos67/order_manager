@@ -2,10 +2,12 @@ package com.ordermanager.controllers;
 
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ordermanager.dtos.OrderDTO;
 import com.ordermanager.models.entitys.Order;
 import com.ordermanager.services.Order.OrderService;
@@ -53,7 +56,19 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.OK).body(order);
 	}
 	
+	@RequestMapping(path = "/date", method = RequestMethod.GET)
+	public ResponseEntity<List<Order>> findByDate(
+			 @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)
+			{
+		
+		List<Order> orders = this.orderService.findByDate(date);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(orders);
+		
+	}
 	
+	
+
 	
 	
 }
