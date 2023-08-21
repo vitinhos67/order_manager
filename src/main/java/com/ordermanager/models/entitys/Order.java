@@ -19,6 +19,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
 
@@ -36,7 +38,9 @@ public class Order {
         inverseJoinColumns = @JoinColumn(name = "item_id")
     )
     private List<Item> itens;
-	private Date created_at;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
 	private String description;
 	private OrderStatus status;
 	
@@ -59,7 +63,7 @@ public class Order {
 		super();
 		this.userId = userId;
 		this.itens = itens;
-		this.created_at = new Date();
+		this.createdAt = new Date();
 	}
 	
 	
@@ -120,7 +124,7 @@ public class Order {
 	}
 
 	public Date getCreated_at() {
-		return created_at;
+		return createdAt;
 	}
 
 	
@@ -136,7 +140,7 @@ public class Order {
 
 
 	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+		this.createdAt = created_at;
 	}
 
 
