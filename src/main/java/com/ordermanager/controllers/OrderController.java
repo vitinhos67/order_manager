@@ -24,6 +24,7 @@ import com.ordermanager.services.Order.OrderService;
 
 
 
+
 @RestController
 @RequestMapping(path = "/order")
 public class OrderController {
@@ -34,7 +35,7 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Order> createOrder
     (@RequestBody OrderDTO order,
-    @RequestParam(name = "idUser", required = false)  Optional<Integer> idUser) 
+    @RequestParam(name = "idUser", required = false)  int idUser) 
     		throws Exception {
 			       Order newOrder = this.orderService.create(order, idUser);
 			       	return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
@@ -60,6 +61,7 @@ public class OrderController {
 	public ResponseEntity<List<Order>> findByDate(
 			 @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)
 			{
+		
 		
 		List<Order> orders = this.orderService.findByDate(date);
 		

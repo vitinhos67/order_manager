@@ -1,12 +1,12 @@
 package com.ordermanager.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +19,8 @@ import com.ordermanager.services.Item.ItemService;
 import com.ordermanager.services.Item.ItemStatus;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
 
 @RestController
 @RequestMapping(path = "/item")
@@ -49,14 +51,19 @@ public class ItemController {
 		return ResponseEntity.status(HttpStatus.OK).body(itensFound);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Item> findById(@PathVariable @NotNull int id) {
+		Item item = this.itemService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(item);
 	
+	}
 	@PutMapping
-	public ResponseEntity<Optional<Item>> changeItemStatus(
+	public ResponseEntity<Item> changeItemStatus(
 			@RequestParam("id") int id,
 			@RequestParam("status") ItemStatus status) 
 			throws Exception {
 		
-		Optional<Item> item = this.itemService.changeItemStatus(id, status);
+		Item item = this.itemService.changeItemStatus(id, status);
 		
 		
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(item);

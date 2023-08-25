@@ -1,12 +1,11 @@
 package com.ordermanager.services.user;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.ordermanager.exceptions.UserNotFoundException;
 import com.ordermanager.models.entitys.User;
 import com.ordermanager.models.repositorys.UserRepository;
 
@@ -27,25 +26,20 @@ public class UserService {
 	}
 
 
-	public Optional<User> findUserById(int id) {
-		return this.userRepository.findById(id);
+	public User findUserById(int id) {
+		return this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 	
 	public User updateUser(User user, int id) throws Exception {
 		
-		Optional<User> optionalUser = this.findUserById(id);
-		
-	    if (!optionalUser.isPresent()) {
-	        throw new Exception("User not found");
-	    } 
+		User optionalUser = this.findUserById(id);
 
-	    User user1 = optionalUser.get();
-	    user1.setName(user.getName());
-	    user1.setEmail(user.getEmail());
+	    optionalUser.setName(user.getName());
+	    optionalUser.setEmail(user.getEmail());
 	   
 
-	    this.createUser(user1);
-	    return user1;
+	    this.createUser(optionalUser);
+	    return optionalUser;
 	}
 	
 	

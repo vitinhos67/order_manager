@@ -2,7 +2,6 @@ package com.ordermanager.controllers;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +42,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-	public Optional<User> findUserById(@PathVariable int id) throws Exception {
+	public User findUserById(@PathVariable int id) throws Exception {
 		return this.userService.findUserById(id);
 	}
 	
