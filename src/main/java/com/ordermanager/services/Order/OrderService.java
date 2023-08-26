@@ -3,12 +3,13 @@ package com.ordermanager.services.Order;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ordermanager.dtos.OrderDTO;
+import com.ordermanager.exceptions.OrderNotFoundException;
 import com.ordermanager.models.entitys.Item;
 import com.ordermanager.models.entitys.Order;
 
@@ -56,8 +57,8 @@ public class OrderService {
     	return (List<Order>) this.orderRepository.findAll();   
     }
     
-    public Optional<Order> findById(Integer id) {
-    	return this.orderRepository.findById(id);
+    public Order findById(Integer id) {
+    	return this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException(id));
     }
     
     public List<Order> findByDate(LocalDate date) {

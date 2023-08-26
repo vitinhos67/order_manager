@@ -52,8 +52,8 @@ public class OrderController {
 	}
 	
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Optional<Order>> findById(@PathVariable int id) {
-		Optional<Order> order = this.orderService.findById(id);	
+	public ResponseEntity<Order> findById(@PathVariable int id) {
+		Order order = this.orderService.findById(id);	
 		return ResponseEntity.status(HttpStatus.OK).body(order);
 	}
 	
