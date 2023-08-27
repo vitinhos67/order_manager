@@ -4,16 +4,18 @@ package com.ordermanager.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +34,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
     public ResponseEntity<Order> createOrder
     (@RequestBody OrderDTO order,
     @RequestParam(name = "idUser", required = false)  int idUser) 
@@ -43,7 +45,7 @@ public class OrderController {
     }
 	
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<List<Order>> findOrders() {
 	
 		List<Order> listOrders = (List<Order>) this.orderService.findAll();
@@ -51,13 +53,15 @@ public class OrderController {
 		
 	}
 	
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Order> findById(@PathVariable int id) {
-		Order order = this.orderService.findById(id);	
-		return ResponseEntity.status(HttpStatus.OK).body(order);
+		
+		
+			Order order = this.orderService.findById(id);	
+			return ResponseEntity.status(HttpStatus.OK).body(order);
 	}
 	
-	@RequestMapping(path = "/date", method = RequestMethod.GET)
+	@GetMapping(path = "/date")
 	public ResponseEntity<List<Order>> findByDate(
 			 @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)
 			{

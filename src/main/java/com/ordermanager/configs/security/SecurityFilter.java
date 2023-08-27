@@ -3,12 +3,12 @@ package com.ordermanager.configs.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import com.ordermanager.services.user.UserService;
 
 import jakarta.servlet.FilterChain;
@@ -41,7 +41,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
+		} else {
+			sendUnauthorizedResponse(response);
+			return;
 		}
+		
 		
 		filterChain.doFilter(request, response);
 		
@@ -59,6 +63,15 @@ public class SecurityFilter extends OncePerRequestFilter {
 	        return null;
 	    }
 	    return token.replace("Bearer ", "");
+	}
+	
+	private void sendUnauthorizedResponse(HttpServletResponse response) throws IOException {
+		
+
+	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	    response.setContentType("application/json");
+	    String jsonResponse = "{\"error\": \"Token empty\", \"status\": \"401\"}";
+	    response.getWriter().write(jsonResponse);
 	}
 	
 
