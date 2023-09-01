@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +22,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private TokenService tokenService;
-	
-	
+
 	@Autowired
 	private UserService userService;
 	
@@ -37,26 +37,25 @@ public class SecurityFilter extends OncePerRequestFilter {
 			var subject = tokenService.validateToken(token);
 			
 			UserDetails user = userService.findByEmail(subject);
-			
+
+			if(user != null) {
+
+				String message = "{\"error\": \"User not found\", \"status\": \"401\"}";
+
+				sendUnauthorizedResponse(response, message);
+				return;
+			}
+
 			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
-		} else {
-			sendUnauthorizedResponse(response);
-			return;
 		}
-		
 		
 		filterChain.doFilter(request, response);
 		
 		
 	}
-	
-	/**
-	 * Retrieve the user's token
-	 * @param request
-	 * @return
-	 */
+
 	private String retrieveToken(HttpServletRequest request) {
 	    String token = request.getHeader("Authorization");
 	    if(token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
@@ -65,13 +64,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 	    return token.replace("Bearer ", "");
 	}
 	
-	private void sendUnauthorizedResponse(HttpServletResponse response) throws IOException {
-		
-
+	private void sendUnauthorizedResponse(HttpServletResponse response, String message) throws IOException {
 	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 	    response.setContentType("application/json");
-	    String jsonResponse = "{\"error\": \"Token empty\", \"status\": \"401\"}";
-	    response.getWriter().write(jsonResponse);
+
+	    response.getWriter().write(message);
 	}
 	
 
