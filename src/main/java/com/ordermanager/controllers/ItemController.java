@@ -23,7 +23,7 @@ import jakarta.validation.constraints.NotNull;
 
 
 @RestController
-@RequestMapping(path = "/item")
+@RequestMapping(path = "/api/item")
 public class ItemController {
 
 	@Autowired

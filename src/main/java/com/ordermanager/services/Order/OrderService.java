@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ordermanager.dtos.OrderDTO;
-import com.ordermanager.exceptions.OrderNotFoundException;
+import com.ordermanager.exceptions.notFound.OrderNotFoundException;
 import com.ordermanager.models.entitys.Item;
 import com.ordermanager.models.entitys.Order;
 

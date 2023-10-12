@@ -36,6 +36,7 @@ build/
 ### Files ###
 
 application.properties
+persistence-*.properties
 
 
 

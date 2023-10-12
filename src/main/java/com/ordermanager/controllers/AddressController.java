@@ -3,6 +3,7 @@ package com.ordermanager.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import com.ordermanager.models.entitys.Embeddable.Address;
 import com.ordermanager.services.AddressService;
 
 @RestController
-@RequestMapping(path = "/address")
+@RequestMapping(path = "/api/address")
 public class AddressController {
 	
 	@Autowired
@@ -28,6 +29,6 @@ public class AddressController {
 		return ResponseEntity.status(HttpStatus.OK).body(addAddress);
 		
 	}
-	
+
 	
 }

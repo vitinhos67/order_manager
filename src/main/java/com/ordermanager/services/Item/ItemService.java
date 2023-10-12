@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ordermanager.exceptions.ItemNotFoundException;
+import com.ordermanager.exceptions.notFound.ItemNotFoundException;
 import com.ordermanager.models.entitys.Item;
 import com.ordermanager.models.repositorys.ItemRepository;
 

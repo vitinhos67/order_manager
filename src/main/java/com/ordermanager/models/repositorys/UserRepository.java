@@ -7,5 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ordermanager.models.entitys.User;
 
 public interface UserRepository extends PagingAndSortingRepository<User, Integer>, CrudRepository<User, Integer> {
-	UserDetails findByEmail(String email);
+
+    UserDetails findByEmail(String email);
 }

@@ -1,20 +1,17 @@
 package com.ordermanager.controllers;
 
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ordermanager.exceptions.AccessDeniedExceptionHandler;
-import com.ordermanager.exceptions.ItemNotFoundException;
-import com.ordermanager.exceptions.OrderNotFoundException;
-import com.ordermanager.exceptions.UserNotFoundException;
+import com.ordermanager.exceptions.notFound.ItemNotFoundException;
+import com.ordermanager.exceptions.notFound.OrderNotFoundException;
+import com.ordermanager.exceptions.notFound.UserNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -33,9 +30,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
     @ExceptionHandler({ AccessDeniedExceptionHandler.class })
     public ResponseEntity<String> handleAccessDeniedException(
       AccessDeniedExceptionHandler ex) {
-    	
-    	System.out.print("Aqui?");
-    	
+
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
     

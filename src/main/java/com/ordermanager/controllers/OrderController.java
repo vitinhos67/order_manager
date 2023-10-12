@@ -28,7 +28,7 @@ import com.ordermanager.services.Order.OrderService;
 
 
 @RestController
-@RequestMapping(path = "/order")
+@RequestMapping(path = "/api/order")
 public class OrderController {
 	
 	@Autowired
