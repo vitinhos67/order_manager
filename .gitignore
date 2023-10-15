@@ -37,6 +37,7 @@ build/
 
 application.properties
 persistence-*.properties
+*.properties
 
 
 

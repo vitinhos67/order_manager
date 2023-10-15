@@ -1,5 +1,6 @@
 package com.ordermanager;
 
+import org.aspectj.apache.bcel.util.ClassPath;
 import org.slf4j.Logger;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,8 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication()
 @ServletComponentScan
-@ComponentScan(basePackages = "com.ordermanager")
+@PropertySource("classpath:aws.properties")
+@PropertySource("classpath:sender-email.properties")
 /*@PropertySource({ "classpath:persistence-${DENVTARGET:dev}.properties" })*/
 public class OrderManagerApplication {
 	
