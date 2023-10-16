@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +39,7 @@ public class User implements UserDetails {
 	private String password;
 		
 	@Embedded
+	@Nullable
 	Address address;
 	private UserRole role;
 	
@@ -46,7 +48,7 @@ public class User implements UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String name, String email, String password, UserRole role,Address address) {
+	public User(String name, String email, String password, UserRole role, Address address) {
 		super();
 		this.name = name;
 		this.email = email;

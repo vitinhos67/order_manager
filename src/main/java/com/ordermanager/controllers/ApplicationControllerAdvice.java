@@ -21,7 +21,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler {
 
-	
 	@ExceptionHandler({OrderNotFoundException.class, ItemNotFoundException.class, UserNotFoundException.class})
 	  public ResponseEntity<String> handleNotFoundException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
@@ -34,16 +33,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
     }
     
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleError(HttpServletRequest req, Exception ex) {
-      logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 
-      ModelAndView mav = new ModelAndView();
-      mav.addObject("exception", ex);
-      mav.addObject("url", req.getRequestURL());
-      mav.setViewName("error");
-      return mav;
-    }
 
 
 }

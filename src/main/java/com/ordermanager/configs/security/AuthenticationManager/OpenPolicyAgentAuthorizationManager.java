@@ -2,6 +2,7 @@ package com.ordermanager.configs.security.AuthenticationManager;
 
 import java.util.function.Supplier;
 
+import com.ordermanager.models.entitys.User;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -49,7 +50,8 @@ public class OpenPolicyAgentAuthorizationManager implements AuthorizationManager
 			return new AuthorizationDecision(false);
 		}
 		
-		UserDetails findUser = userService.findByEmail(user);
+		User findUser = userService.findByEmail(user);
+
 		
 		if(findUser == null) {		
 			throw new AccessDeniedException("Access Denied");

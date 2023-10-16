@@ -32,7 +32,7 @@ public class UserController {
 	
 	@RequestMapping(path = "/user", method = {RequestMethod.POST})
 	public User createUser(@Valid @RequestBody User user) throws Exception {
-			this.userService.createUser(user);		
+			this.userService.createUser(user);
 			return user;
 	}
 	
