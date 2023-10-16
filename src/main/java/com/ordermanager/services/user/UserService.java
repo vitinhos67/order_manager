@@ -50,9 +50,7 @@ public class UserService {
 	}
 	
 	public User updateUser(User user, int id) {
-		
 		User optionalUser = this.findUserById(id);
-
 	    optionalUser.setName(user.getName());
 	    optionalUser.setEmail(user.getEmail());
 	    this.createUser(optionalUser);
