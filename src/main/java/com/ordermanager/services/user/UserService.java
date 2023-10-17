@@ -31,8 +31,8 @@ public class UserService {
 	}
 
 
-	public User registerUser(RegisterDTO user) {
-		User userObject = new User(user.name(), user.email(), user.password(), user.role(), null);
+	public User registerUser(RegisterDTO user, String hashPassword) {
+		User userObject = new User(user.name(), user.email(), hashPassword, user.role(), null);
 		return this.userRepository.save(userObject);
 	}
 

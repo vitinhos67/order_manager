@@ -2,12 +2,11 @@ package com.ordermanager.services;
 
 import com.ordermanager.dtos.Authentication.RegisterDTO;
 import com.ordermanager.exceptions.UserFoundException;
-
 import com.ordermanager.models.entitys.User;
 import com.ordermanager.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
@@ -34,7 +33,10 @@ public class AuthenticationService {
             throw new UserFoundException("User already in use");
         }
 
-        User new_user = this.userService.registerUser(data);
+        String salt = BCrypt.gensalt();
+
+        String hashPassword = BCrypt.hashpw(data.password(), salt);
+        User new_user = this.userService.registerUser(data, hashPassword);
 
         try {
 
