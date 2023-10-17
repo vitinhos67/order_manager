@@ -1,24 +1,17 @@
 package com.ordermanager.models.entitys;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import jakarta.annotation.Nullable;
+import com.ordermanager.models.entitys.Embeddable.Address;
+import com.ordermanager.services.user.UserRole;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ordermanager.models.entitys.Embeddable.Address;
-import com.ordermanager.services.user.UserRole;
-
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Entity(name = "users")
 public class User implements UserDetails {
@@ -32,6 +25,8 @@ public class User implements UserDetails {
 	private String name;
 	@NotBlank(message = "Email cannot be blank")
 	private String email;
+
+	private Boolean verifiedAccount;
 	
 	
 	@NotBlank(message = "Password cannot be blank")
@@ -39,7 +34,6 @@ public class User implements UserDetails {
 	private String password;
 		
 	@Embedded
-	@Nullable
 	Address address;
 	private UserRole role;
 	
@@ -94,8 +88,13 @@ public class User implements UserDetails {
 		return email;
 	}
 
+	public Boolean getVerifiedAccount() {
+		return verifiedAccount;
+	}
 
-
+	public void setVerifiedAccount(Boolean verifiedAccount) {
+		this.verifiedAccount = verifiedAccount;
+	}
 
 	public void setEmail(String email) {
 		this.email = email;

@@ -1,17 +1,14 @@
 package com.ordermanager.services.user;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.ordermanager.dtos.Authentication.RegisterDTO;
-import com.ordermanager.services.SenderEmailService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
 import com.ordermanager.exceptions.notFound.UserNotFoundException;
 import com.ordermanager.models.entitys.User;
 import com.ordermanager.models.repositorys.UserRepository;
+import com.ordermanager.services.SenderEmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -56,6 +53,16 @@ public class UserService {
 	    this.createUser(optionalUser);
 	    return optionalUser;
 	}
+
+	public User updateVerification(Integer id) {
+
+		User user = this.findUserById(id);
+		user.setVerifiedAccount(Boolean.TRUE);
+
+		return user;
+
+	}
+
 	
 	
 	public User findByEmail(String email) {

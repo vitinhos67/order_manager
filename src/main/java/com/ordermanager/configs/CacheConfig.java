@@ -13,8 +13,6 @@ import java.util.List;
 @Configuration
 public class CacheConfig {
 
-
-
     @Bean
     public CacheManager cacheManager() {
         // configure and return an implementation of Spring's CacheManager SPI

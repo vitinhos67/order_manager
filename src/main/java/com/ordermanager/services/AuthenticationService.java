@@ -18,6 +18,7 @@ public class AuthenticationService {
     @Value("${account.mail.confirmation.enable}")
     private Boolean enableConfirmationAccount;
 
+
     @Autowired
     UserService userService;
 
@@ -38,7 +39,7 @@ public class AuthenticationService {
         try {
 
             if(enableConfirmationAccount) {
-                this.senderEmailService.sendEmail(data.email(), "Account Verification", "TESTE1");
+                this.senderEmailService.sendEmail(data.email(), "Account Verification", bodyMessage(new_user.getId()));
             }
 
             return new_user;
@@ -49,6 +50,16 @@ public class AuthenticationService {
         return null;
     }
 
+    private String bodyMessage(Integer id) {
 
+        String htmlString = "<h1><strong>Order Manager</strong></h1>"
+                + "<h2><strong>Verifique sua conta clicando no link, caso contrario a conta ser&aacute; suspensa!</strong></h2>"
+                + "<p>clique aqui e tenha sua conta verificada:</p>"
+                + "<p><a href=\"http://" + "localhost" + ":" + "8080" + "/api/verification?id=" + id + "\"> clique aqui." + "</a></p>"
+                + "<p>Caso n&atilde;o tenha efetuado essa opera&ccedil;&atilde;o <a href=\"http://host:port/" + id + "\">clique aqui</a>.</p>";
+
+
+        return htmlString;
+    }
 
 }
