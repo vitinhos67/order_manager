@@ -26,14 +26,11 @@ public class UserService {
 
 		
 	public User createUser(User user) {
-
-
 			User findUser = this.findByEmail(user.getEmail());
 
 			if(findUser != null){
 				throw new UserFoundException("User already exists");
 			}
-
 			String salt = BCrypt.gensalt();
 			String hashPassword = BCrypt.hashpw(user.getPassword(), salt);
 
@@ -41,7 +38,6 @@ public class UserService {
 
 			User new_user = this.userRepository.save(user);
 			return new_user;
-
 	}
 
 

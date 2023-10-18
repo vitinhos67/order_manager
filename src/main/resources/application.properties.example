@@ -1,8 +1,45 @@
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-spring.datasource.url= jdbc:mysql://localhost:3306/database_name
+spring.datasource.url= jdbc:mysql://host:port/database_name
 spring.datasource.username= your_username
 spring.datasource.password= your_password
 spring.jpa.hibernate.ddl-auto= update
 spring.data.rest.basePath= /api
 
+
+management.endpoints.web.exposure.include= openapi, swagger-ui
+
 api.security.token.secret = ${JWT_SECRET:my-secret-key}
+
+spring.devtools.restart.enabled = true
+
+## Case true, are necessary a provider for send emails with smtp.
+account.mail.confirmation.enable = false
+
+
+## Configs for smtp.
+spring.mail.host=  ## Set the value according to the provider, for example Google. smtp.gmail.com
+spring.mail.port= ## Set the value according to the provider, for example Google. port 587
+spring.mail.username= you_email
+spring.mail.password= you_password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.test-connection = false
+spring.mail.properties.mail.smtp.starttls.enable=true
+support.email = your_password
+
+
+
+
+
+## Remove application details from about response errors
+server.error.include-stacktrace=never
+
+
+redis.connection.port = 6379
+redis.connection.host = localhost
+
+spring.cache.type = redis
+spring.redis.host=localhost
+spring.redis.port=6379
+
+application.server.host = localhost
+application.server.port = 8080

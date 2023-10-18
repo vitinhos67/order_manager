@@ -30,11 +30,7 @@ public class SenderEmailService {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-
-
             helper.setText(message, true);
-
-
 
             helper.setFrom(fromEmail);
             helper.setTo(to);
