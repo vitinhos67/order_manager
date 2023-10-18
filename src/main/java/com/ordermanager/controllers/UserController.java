@@ -31,7 +31,7 @@ public class UserController {
 			return user;
 	}
 
-	@Cacheable(value = "users	")
+	@Cacheable(value = "users")
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
 	public List<User> allUsers() {
 		return this.userService.allUsers();

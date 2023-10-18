@@ -18,10 +18,10 @@ public class CacheConfig {
         // configure and return an implementation of Spring's CacheManager SPI
         SimpleCacheManager cacheManager = new SimpleCacheManager();
 
-
         List<ConcurrentMapCache> caches = new ArrayList();
         caches.add(new ConcurrentMapCache("users"));
         caches.add(new ConcurrentMapCache("orders"));
+        caches.add(new ConcurrentMapCache("orders-date"));
         caches.add(new ConcurrentMapCache("itens"));
 
         cacheManager.setCaches(caches);
