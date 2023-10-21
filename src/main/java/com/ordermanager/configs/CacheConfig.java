@@ -21,7 +21,6 @@ public class CacheConfig {
     public RedisCacheConfiguration redisConfig(ObjectMapper objectMapper) {
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-
             return config
                 .entryTtl(Duration.ofMinutes(120))
                 .disableCachingNullValues();
@@ -31,7 +30,6 @@ public class CacheConfig {
     public CacheManager cacheManager() {
         // configure and return an implementation of Spring's CacheManager SPI
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-
         List<ConcurrentMapCache> caches = new ArrayList();
         caches.add(new ConcurrentMapCache("users"));
         caches.add(new ConcurrentMapCache("orders"));
