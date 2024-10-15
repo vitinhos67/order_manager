@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: order_manager_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order_manager
+      MYSQL_USER: root
+    ports:
+      - "3315:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  redis:
+    image: redis
+    container_name: redis_order_manager
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  app_network:
+    driver: bridge

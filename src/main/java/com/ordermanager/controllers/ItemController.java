@@ -64,8 +64,6 @@ public class ItemController {
 			throws Exception {
 		
 		Item item = this.itemService.changeItemStatus(id, status);
-		
-		
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(item);
 		
 	}

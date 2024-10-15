@@ -16,18 +16,16 @@ import com.ordermanager.services.AddressService;
 @RestController
 @RequestMapping(path = "/api/address")
 public class AddressController {
-	
+
 	@Autowired
 	AddressService addressService;
-	
-	
+
 	@PostMapping
 	public ResponseEntity<User> addAddressToUser(@RequestBody Address address, @RequestParam("id") int id) {
-		
+
 		User addAddress = this.addressService.addAddressToUser(address, id);
 		return ResponseEntity.status(HttpStatus.OK).body(addAddress);
-		
+
 	}
 
-	
 }
